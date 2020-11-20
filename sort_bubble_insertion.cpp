@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     int A[size];
 
     for (int i=0; i < size; i++) {
-        A[i] = rand() % size*2;
+        A[i] = rand() % size * 2;
     }
 
     sortByMethod[--method](A, size);
@@ -48,9 +48,9 @@ void sortB(int* A, int size) {
         isSorted = 1;
         for (int i=0; i < size-1; i++) {
             if (A[i+1] < A[i]){
-                tmp = A[i];
-                A[i] = A[i+1];
-                A[i+1] = tmp;
+                tmp      = A[i];
+                A[i]     = A[i+1];
+                A[i+1]   = tmp;
                 isSorted = 0;
             }
         }
@@ -64,9 +64,9 @@ void sortI(int* A, int size) {
 
     for (int i = 1; i < size; i++){
         for (int j = i; A[j] < A[j-1] && j > 0; j--) {
-            tmp = A[j-1];
-            A[j-1] = A[j];
-            A[j] = tmp;
+            tmp     = A[j-1];
+            A[j-1]  = A[j];
+            A[j]    = tmp;
         }
     }
 }
