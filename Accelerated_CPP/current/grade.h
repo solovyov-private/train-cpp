@@ -4,10 +4,11 @@
 #include <vector>
 #include "Student_info.h"
 
-bool fgrade(const Student_info&);
-double grade(double, double, double);
-double grade(double, double, const std::vector<double>&);
-double grade(const Student_info&);
+bool fgrade(const Student_info& s);
+
+double grade(double midterm, double final, double homework);
+double grade(double midterm, double final, const std::vector<double>& hw);
+double grade(const Student_info& s);
 
 #endif
 
