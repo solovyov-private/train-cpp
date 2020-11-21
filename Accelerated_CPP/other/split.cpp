@@ -35,14 +35,16 @@ vector<string> split(const string& s)
 int main()
 {
     string a;
-    getline(cin, a);
+    while (getline(cin, a)) {
     
-    vector<string> vec = split(string(a));
+        vector<string> vec = split(string(a));
     
-    vector<string>::iterator iter = vec.begin();
-
-    while (iter != vec.end()) {
-        cout << *iter << "\t";
-        ++iter;
+        for (
+                vector<string>::size_type i = 0;
+                i != vec.size();
+                ++i
+            ){
+            cout << vec[i] << endl;
+        }
     }
 }
