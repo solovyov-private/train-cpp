@@ -31,7 +31,7 @@ int main() {
         students.push_back(record);
     }
 
-    sort(students.begin(), students.end(), compare);
+    students.sort(compare);
 
     for (
             list<Student_info>::iterator i = students.begin();
@@ -51,6 +51,7 @@ int main() {
             }
         }
 }
+
 
 list<Student_info> extract_fails(list<Student_info>& students) {
     list<Student_info> fail;
