@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <chrono>
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -21,6 +22,8 @@ using std::streamsize;
 using std::string;
 using std::vector;
 
+list<Student_info> extract_fails(list<Student_info>& students);
+
 int main() {
     list<Student_info> students;
     Student_info record;
@@ -31,13 +34,17 @@ int main() {
         students.push_back(record);
     }
 
+    auto startTime = std::chrono::high_resolution_clock::now();
+
     students.sort(compare);
+
+    list<Student_info> failed_students = extract_fails(students);
 
     for (
             list<Student_info>::iterator i = students.begin();
             i != students.end();
             ++i
-        ) {
+    ) {
             cout << i->name << string(maxlen + 1 - i->name.size(), ' ');
 
             try{
@@ -49,7 +56,21 @@ int main() {
                 cout << endl << e.what() << endl;
                 return 1;
             }
-        }
+    }
+
+    for (
+            list<Student_info>::iterator i = failed_students.begin();
+            i != failed_students.end();
+            ++i
+    ) {
+            cout << "Students failed:" << endl;
+            cout << i->name << string(maxlen + 1 - i->name.size(), ' ');
+            cout << endl;
+    }
+
+    auto stopTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stopTime - startTime);
+    cout << "Elapsed time: " << duration.count() << "μs" << endl;
 }
 
 
@@ -60,7 +81,7 @@ list<Student_info> extract_fails(list<Student_info>& students) {
     while (iter != students.end()) {
         if (fgrade(*iter)) {
             fail.push_back(*iter);
-            students.erase(iter);
+            iter = students.erase(iter);
         } else {
             ++iter;
         }
