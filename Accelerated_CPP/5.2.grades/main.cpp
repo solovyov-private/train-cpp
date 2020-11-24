@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <list>
 #include <string>
 #include <vector>
 
@@ -13,6 +14,7 @@ using std::cout;
 using std::domain_error;
 using std::endl;
 using std::istream;
+using std::list;
 using std::max;
 using std::setprecision;
 using std::streamsize;
@@ -20,7 +22,7 @@ using std::string;
 using std::vector;
 
 int main() {
-    vector<Student_info> students;
+    list<Student_info> students;
     Student_info record;
     string::size_type maxlen = 0;
 
@@ -32,14 +34,14 @@ int main() {
     sort(students.begin(), students.end(), compare);
 
     for (
-            vector<Student_info>::size_type i = 0;
-            i < students.size();
+            list<Student_info>::iterator i = students.begin();
+            i != students.end();
             ++i
         ) {
-            cout << students[i].name << string(maxlen+1-students[i].name.size(), ' ');
+            cout << i->name << string(maxlen + 1 - i->name.size(), ' ');
 
             try{
-                double final_grade = grade(students[i]);
+                double final_grade = grade(*i);
                 streamsize prec = cout.precision();
                 cout << "Your final grade: " << setprecision(3) << final_grade
                                              << setprecision(prec) << endl;
@@ -50,9 +52,9 @@ int main() {
         }
 }
 
-vector<Student_info> extract_fails(vector<Student_info>& students) {
-    vector<Student_info> fail;
-    vector<Student_info>::iterator iter = students.begin();
+list<Student_info> extract_fails(list<Student_info>& students) {
+    list<Student_info> fail;
+    list<Student_info>::iterator iter = students.begin();
 
     while (iter != students.end()) {
         if (fgrade(*iter)) {
@@ -64,4 +66,3 @@ vector<Student_info> extract_fails(vector<Student_info>& students) {
     }
     return fail;
 }
-
