@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "Collection.h"
 #include "grade.h"
 #include "Student_info.h"
 
@@ -22,10 +23,6 @@ using std::streamsize;
 using std::string;
 using std::vector;
 
-//typedef list<Student_info> Collection;
-typedef vector<Student_info> Collection;
-
-Collection extract_fails(Collection& students);
 
 int main() {
     Student_info record;
@@ -76,20 +73,4 @@ int main() {
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stopTime - startTime);
     cout << "Elapsed time: " << duration.count() << "μs" << endl;
-}
-
-
-Collection extract_fails(Collection& students) {
-    Collection fail;
-    Collection::iterator iter = students.begin();
-
-    while (iter != students.end()) {
-        if (fgrade(*iter)) {
-            fail.push_back(*iter);
-            iter = students.erase(iter);
-        } else {
-            ++iter;
-        }
-    }
-    return fail;
 }
