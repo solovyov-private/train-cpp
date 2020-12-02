@@ -9,6 +9,8 @@
 #include <vector>
 
 #include "Collection.h"
+#include "analysis.h"
+#include "average.h"
 #include "grade.h"
 #include "Student_info.h"
 
@@ -23,7 +25,6 @@ using std::setprecision;
 using std::streamsize;
 using std::string;
 using std::vector;
-
 
 int main() {
     Student_info record;
@@ -90,8 +91,14 @@ int main() {
     if (didnt.empty()) {
         cout << "All completed homework" << endl;
     }
+    
+    write_analysis(cout, "median", median_analysis, did, didnt);
+    write_analysis(cout, "average", average_analysis, did, didnt);
+    write_analysis(cout, "median of homework turned in", optimistic_median_analysis, did, didnt);
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stopTime - startTime);
     cout << "Elapsed time: " << duration.count() << "μs" << endl;
+
+    return 0;
 }

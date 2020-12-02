@@ -1,10 +1,4 @@
-#include <algorithm>
-#include <stdexcept>
-#include <vector>
-
 #include "grade.h"
-#include "median.h"
-#include "Student_info.h"
 
 using std::domain_error;
 using std::find;
@@ -39,3 +33,11 @@ double grade(const Student_info& s)
     return grade(s.midterm, s.final, s.homework);
 }
 
+double grade_aux(const Student_info& s)
+{
+    try {
+        return grade(s);
+    } catch (domain_error) {
+        return grade(s.midterm, s.final, 0);
+    }
+}

@@ -1,7 +1,3 @@
-#include <algorithm>
-#include <stdexcept>
-#include <vector>
-
 #include "median.h"
 
 using std::domain_error;

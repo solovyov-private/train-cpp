@@ -1,5 +1,4 @@
 #include "Collection.h"
-#include "grade.h"
 
 Collection extract_fails(Collection& students) {
     Collection fail;
