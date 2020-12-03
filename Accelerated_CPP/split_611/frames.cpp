@@ -2,19 +2,36 @@
 #include <string>
 #include <vector>
 
+#include "stream.h"
+
+using std::cin;
 using std::max;
 using std::string;
 using std::vector;
 
-
 string::size_type width(const vector<string>& v)
 {
     string::size_type maxlen = 0;
-    for (vector<string>::size_type i = 0; i != v.size(); ++i) {
-        maxlen = max(maxlen, v[i].size());
+    for (vector<string>::const_iterator iter = v.begin(); iter != v.end(); ++iter) {
+        maxlen = max(maxlen, iter->size());
     }
 
     return maxlen;
+}
+
+vector<string> center(const vector<string>& v){
+    vector<string> ret;
+    string x;
+    string::size_type maxlen = width(v);
+
+    for (vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+        size_t fw_spaces = (maxlen - i->size()) / 2;
+        x = *i;
+        x.std::string::insert(0, fw_spaces, ' ');
+        ret.push_back(x);
+    }
+
+    return ret;
 }
 
 vector<string> hcat(const vector<string>& left,
@@ -23,19 +40,20 @@ vector<string> hcat(const vector<string>& left,
     vector<string> ret;
     string::size_type width1 = width(left) + 1;
 
-    vector<string>::size_type i = 0, j = 0;
+    vector<string>::const_iterator i = left.begin();
+    vector<string>::const_iterator j = right.begin();
 
-    while (i != left.size() || j != right.size()) {
+    while (i != left.end() || j != right.end()) {
         string s;
 
-        if (i != left.size()){
-            s = left[i++];
+        if (i != left.end()){
+            s = *(i++);
         }
 
         s += string(width1 - s.size(), ' ');
 
-        if (j != right.size()) {
-            s += right[j++];
+        if (j != right.end()) {
+            s += *(j++);
         }
 
         ret.push_back(s);
@@ -50,11 +68,11 @@ vector<string> vcat(const vector<string>& top,
     vector<string> ret = top;
 
     for (
-            vector<string>::const_iterator it = bottom.begin();
-            it != bottom.end();
-            ++it
+            vector<string>::const_iterator iter = bottom.begin();
+            iter != bottom.end();
+            ++iter
     ) {
-        ret.push_back(*it);
+        ret.push_back(*iter);
     }
 
     // or the same
@@ -71,10 +89,26 @@ vector<string> frame(const vector<string>& v)
 
     ret.push_back(border);
 
-    for (vector<string>::size_type i = 0; i != v.size(); ++i) {
-        ret.push_back("* " + v[i] + string(maxlen - v[i].size(), ' ') + " *");
+    for (vector<string>::const_iterator iter = v.begin(); iter != v.end(); ++iter) {
+        ret.push_back("* " + *iter + string(maxlen - iter->size(), ' ') + " *");
     }
 
     ret.push_back(border);
     return ret;
+}
+
+int main(){
+    string x;
+    vector<string> collection;
+
+    while (getline(cin, x)) {
+        collection.push_back(x);
+    }
+
+    collection = center(collection);
+    collection = frame(collection);
+
+    printLines(collection);
+
+    return 0;
 }
