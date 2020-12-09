@@ -21,12 +21,21 @@ bool pgrade(const Student_info& s)
     return !fgrade(s);
 }
 
-//
+// variant 1
+//Collection extract_fails(Collection& students) {
+//    Collection fail;
+//    remove_copy_if(students.begin(), students.end(),
+//                   back_inserter(fail), pgrade);
+//    students.erase(remove_if(students.begin(), students.end(),
+//                             fgrade), students.end());
+//    return fail;
+//}
+
+// variant 2
 Collection extract_fails(Collection& students) {
-    Collection fail;
-    remove_copy_if(students.begin(), students.end(),
-                   back_inserter(fail), pgrade);
-    students.erase(remove_if(students.begin(), students.end(),
-                             fgrade), students.end());
+    Collection::iterator iter = stable_partition(students.begin(),
+                                students.end(), pgrade);
+    Collection fail(iter, students.end());
+    students.erase(iter, students.end());
     return fail;
 }

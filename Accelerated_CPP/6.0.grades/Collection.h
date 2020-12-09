@@ -1,6 +1,7 @@
 #ifndef GUARD_Collection_h
 #define GUARD_Collection_h
 
+#include <algorithm>
 #include <list>
 #include <vector>
 
