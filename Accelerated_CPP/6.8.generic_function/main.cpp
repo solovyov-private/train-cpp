@@ -44,7 +44,8 @@ int main() {
 
     Collection failed_students;
 
-    failed_students = extract_fails(students);
+    failed_students = extract_fails(students, pgrade);
+//    failed_students = extract_fails(students, did_all_hw);
 
     vector<Student_info> did, didnt;
 
@@ -77,7 +78,7 @@ int main() {
             i != failed_students.end();
             ++i
     ) {
-            cout << i->name << string(maxlen + 1 - i->name.size(), ' ') << endl;
+            cout << i->name << " " << grade(*i) << endl;
     }
 
     if (did.empty()) {
@@ -88,9 +89,23 @@ int main() {
         cout << "All completed homework" << endl;
     }
     
-    write_analysis(cout, "median", grade_aux, did, didnt);
-    write_analysis(cout, "average", average_grade, did, didnt);
-    write_analysis(cout, "median of homework turned in", optimistic_median, did, didnt);
+    try {
+        write_analysis(cout, "median", grade_aux, did, didnt);
+    } catch (domain_error e) {
+        cout << "error" << endl;
+    }
+
+    try {
+        write_analysis(cout, "average", average_grade, did, didnt);
+    } catch (domain_error e) {
+        cout << "error" << endl;
+    }
+
+    try {
+        write_analysis(cout, "median of homework turned in", optimistic_median, did, didnt);
+    } catch (domain_error e) {
+        cout << "error" << endl;
+    }
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stopTime - startTime);
