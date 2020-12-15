@@ -1,0 +1,13 @@
+<noun>          puma
+<noun>          cat
+<noun>          tiger
+<noun-phrase>   <adjective> <noun>
+<adjective>     happy
+<adjective>     silver
+<adjective>     smiley
+<verb>          playes
+<verb>          jumps
+<verb>          meows
+<location>      on the grass
+<location>      in the room
+<sentence>      Look! The <noun-phrase> <verb> <location>
