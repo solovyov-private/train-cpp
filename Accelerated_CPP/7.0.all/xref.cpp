@@ -21,8 +21,7 @@ map<string, vector<int> >
         vector<string> words = find_words(line);
 
         for (vector<string>::const_iterator iter = words.begin();
-            iter != words.end();
-            ++iter) {
+            iter != words.end(); ++iter) {
             ret[*iter].push_back(line_number);
         }
     }
