@@ -9,5 +9,6 @@
 <verb>          jumps
 <verb>          meows
 <location>      on the grass
+<location>      on the road
 <location>      in the room
 <sentence>      Look! The <noun-phrase> <verb> <location>
