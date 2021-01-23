@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "current/median.h"
+#include "5.2.grades/median.h"
 
 using std::cout;         using std::cin;
 using std::endl;         using std::string;
