@@ -9,7 +9,7 @@ using std::domain_error;
 using std::sort;
 using std::vector;
 
-template<typename T>
+template<class T>
 T median(vector<T> vec)
 {
     typedef typename vector<T>::size_type vec_sz;
