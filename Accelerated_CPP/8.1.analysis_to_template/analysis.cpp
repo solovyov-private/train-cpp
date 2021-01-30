@@ -28,13 +28,3 @@ double optimistic_median(const Student_info& s)
     else
         return grade(s.midterm, s.final, median(nonzero));
 }
-
-void write_analysis(ostream& out,
-                    const string& name,
-                    double ptrAnalysisMethod(const Student_info&),
-                    const vector<Student_info>& did,
-                    const vector<Student_info>& didnt)
-{
-    out << name << ": median(did) = " << doAnalysis(did, ptrAnalysisMethod)
-        << ", median(didnt) = " << doAnalysis(didnt, ptrAnalysisMethod) << endl;
-}

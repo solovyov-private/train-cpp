@@ -30,10 +30,15 @@ T doAnalysis(const std::vector<S>& students,
 
 }
 
+template<class T, class S>
 void write_analysis(std::ostream& out,
                     const std::string& name,
-                    double ptrAnalysisMethod(const Student_info&),
-                    const std::vector<Student_info>& did,
-                    const std::vector<Student_info>& didnt);
+                    T ptrAnalysisMethod(const S&),
+                    const std::vector<S>& did,
+                    const std::vector<S>& didnt)
+{
+    out << name << ": median(did) = " << doAnalysis(did, ptrAnalysisMethod)
+        << ", median(didnt) = " << doAnalysis(didnt, ptrAnalysisMethod) << std::endl;
+}
 
 #endif

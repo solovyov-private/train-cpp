@@ -8,7 +8,7 @@ using std::vector;
 
 bool did_all_hw(const Student_info& s)
 {
-    return (find(s.homework.begin(), s.homework.end(), 0) == s.homework.end());
+    return ((find(s.homework.begin(), s.homework.end(), 0)) == s.homework.end());
 }
 
 bool fgrade(const Student_info& s)
