@@ -35,7 +35,7 @@ string letter_grade(double grade)
 
 int main(int argc, char* argv[])
 {
-    if(argc > 1 && strlen(argv[1]) > 0){
+    if (argc > 1 && strlen(argv[1]) > 0) {
         cout << letter_grade(std::atof(argv[1])) << endl;
     }
 }
