@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <cstring>
 #include <iostream>
 #include <string>
 
@@ -32,8 +33,9 @@ string letter_grade(double grade)
     return "\?\?\?";
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-    cout << letter_grade(1) << endl;
-
+    if(argc > 1 && strlen(argv[1]) > 0){
+        cout << letter_grade(std::atof(argv[1])) << endl;
+    }
 }
