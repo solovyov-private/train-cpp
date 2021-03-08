@@ -1,5 +1,8 @@
 #include <algorithm>
 #include <iostream>
+#include <string>
+
+using std::string;
 
 template <typename T>
 class StringList
@@ -134,13 +137,13 @@ T& StringList<T>::operator[](const int index)
 
 int main()
 {
-    StringList<int> lst;
-    lst.push_back(10);
-    lst.push_back(20);
-    lst.push_back(25);
-    lst.push_back(35);
-    lst.push_back(45);
-    lst.push_back(55);
+    StringList<string> lst;
+    lst.push_back("a10");
+    lst.push_back("a20");
+    lst.push_back("a25");
+    lst.push_back("a35");
+    lst.push_back("a45");
+    lst.push_back("a55");
 
     std::cout << "Initial: " << std::endl;
     for (size_t i = 0; i < lst.size(); ++i) {
@@ -148,12 +151,12 @@ int main()
     }
 
     std::cout << "Iterator: " << std::endl;
-    for (StringList<int>::Iterator it = lst.begin(); it != lst.end(); ++it) {
+    for (StringList<string>::Iterator it = lst.begin(); it != lst.end(); ++it) {
         std::cout << *it << std::endl;
     }
 
     std::cout << "Reverse: " << std::endl;
-    for (StringList<int>::ReverseIterator it = lst.rbegin(); it != lst.rend(); ++it) {
+    for (StringList<string>::ReverseIterator it = lst.rbegin(); it != lst.rend(); ++it) {
         std::cout << *it << std::endl;
     }
 }
