@@ -123,5 +123,6 @@ void Vec<T>::unchecked_append(const T& val)
 }
 
 int main(){
-    Vec<int> v;
+    Vec<int> v(10);
+    v.~Vec();
 }
