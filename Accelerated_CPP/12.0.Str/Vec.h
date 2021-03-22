@@ -1,3 +1,6 @@
+#ifndef CUSTOM_VEC_CLASS
+#define CUSTOM_VEC_CLASS
+
 #include <algorithm>
 #include <cstddef>
 #include <memory>
@@ -37,6 +40,7 @@ class Vec
        const_iterator end() const { return avail; }
 
        void clear() { uncreate(); }
+       bool empty() const { return data == avail; }
 
        iterator erase(iterator i)
        {
@@ -96,7 +100,7 @@ template <class T>
 void Vec<T>::create(const_iterator i, const_iterator j)
 {
     data = alloc.allocate(j - i);
-    limit = avail = std::uninitialized_fill(i, j, data);
+    limit = avail = std::uninitialized_copy(i, j, data);
 }
 
 template <class T>
@@ -134,7 +138,4 @@ void Vec<T>::unchecked_append(const T& val)
     alloc.construct(avail++, val);
 }
 
-int main(){
-    Vec<int> v(10, 10);
-    v.clear();
-}
+#endif
