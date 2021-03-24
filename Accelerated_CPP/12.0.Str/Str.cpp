@@ -12,6 +12,8 @@ public:
                   std::back_inserter(data));
         return *this;
     }
+    operator char*();
+    operator const char*() const;
 
     typedef Vec<char>::size_type size_type;
 
