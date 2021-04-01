@@ -7,4 +7,6 @@
 int main()
 {
     Str x("Hello");
+    Str y = " World ";
+    std::cout << y.c_str() << std::endl;
 }
