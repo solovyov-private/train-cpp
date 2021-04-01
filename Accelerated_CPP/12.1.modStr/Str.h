@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 
 class Str
 {
@@ -27,25 +28,26 @@ public:
     
     template<class In> Str(In b, In e) { create(b, e); }
 
-    char& operator[](size_type i) { return data[i]; }
-    const char& operator[](size_type i) const { return data[i]; }
+    char& operator[](size_type i) { return chars[i]; }
+    const char& operator[](size_type i) const { return chars[i]; }
     Str& operator=(const Str&);
 
-    const char* c_str() const;
-    size_type copy (char* s, size_type len) const;
+    const char* c_str();
+    const char* data();
+    size_type copy(iterator s, size_type len) const;
 
     size_type size() const { return length - 1; }
 
-	iterator begin() { return data; }
-	const_iterator begin() const { return data; }
-	iterator end() { return data + length - 1; }
-	const_iterator end() const { return data + length - 1; }
+	iterator begin() { return chars; }
+	const_iterator begin() const { return chars; }
+	iterator end() { return chars + length - 1; }
+	const_iterator end() const { return chars + length - 1; }
 
     Str& operator+=(const Str&);
     
 private:
 	size_type length;
-    iterator data;
+    iterator chars;
 
 	std::allocator<char> alloc;
 
@@ -66,44 +68,52 @@ Str& Str::operator=(const Str& rhs)
     return *this;
 }
 
-const char* Str::c_str() const
+const char* Str::c_str()
 {
-    return this->data;
+    return this->chars;
 }
 
-size_type Str::copy(char* s, size_type len) const
+const char* Str::data()
 {
+    return this->chars;
+}
 
+Str::size_type Str::copy(iterator s, size_type len) const
+{
+    if (len > size())
+        throw std::out_of_range("len to copy > size()");
+
+    std::copy(chars, chars + len, s);
+    return len;
 }
 
 template<class In>
 void Str::create(In b, In e)
 {
     length = e - b + 1;
-    data = alloc.allocate(length);
-    std::uninitialized_copy(b, e, data);
-    alloc.construct(data + length - 1, '\0');
+    chars = alloc.allocate(length);
+    std::uninitialized_copy(b, e, chars);
+    alloc.construct(chars + length - 1, '\0');
 
 }
 
 void Str::create(size_type n, char c)
 {
     length = n + 1;
-    data = alloc.allocate(length);
-    std::uninitialized_fill(data, data + n, c);
-    std::uninitialized_fill(data + n, data + length, '\0');
+    chars = alloc.allocate(length);
+    std::uninitialized_fill(chars, chars + n, c);
+    std::uninitialized_fill(chars + n, chars + length, '\0');
 }
 
 void Str::uncreate()
 {
-    if (data) {
-        std::cout << length << std::endl;
-        iterator tmp = data + length;
+    if (chars) {
+        iterator tmp = chars + length;
 
-        while (tmp != data)
+        while (tmp != chars)
             alloc.destroy(--tmp);
 
-            alloc.deallocate(data, length);
+            alloc.deallocate(chars, length);
     }
 
     length = 0;
